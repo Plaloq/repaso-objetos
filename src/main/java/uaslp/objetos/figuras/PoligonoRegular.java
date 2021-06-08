@@ -11,7 +11,12 @@ public class PoligonoRegular implements Figura{
     }
 
     public PoligonoRegular(int numeroDeLados){
-        this.numeroDeLados=numeroDeLados;
+        if(numeroDeLados>=5){
+            this.numeroDeLados=numeroDeLados;
+        }else{
+            throw new NumeroInvalidoDeLados("Número de lados válido a partir de 5");
+        }
+
     }
 
     public void setLado(double lado){
