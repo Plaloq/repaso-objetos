@@ -1,6 +1,7 @@
 package uaslp.objetos.escuela;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -19,6 +20,59 @@ public class Exercise6 {
 
      */
 
+    @Test
+    public void givenATwoIntEquals_whenAlgoritmoX_ThenAequalsB(){
+        //given
+        Dependencia1 dependencia1 = Mockito.mock(Dependencia1.class);
+        Dependencia2 dependencia2 = Mockito.mock(Dependencia2.class);
+        Dependencia3 dependencia3 = Mockito.mock(Dependencia3.class);
+        AlgoritmoX algoritmoX = new AlgoritmoX(dependencia1, dependencia2, dependencia3);
+        int a = 4;
+        int b = 4;
+        String c = "";
+        //when
+        algoritmoX.algoritmoACubrir(a, b, c);
+        //then
+        Mockito.verify(dependencia1).save(c);
+        Mockito.verify(dependencia3).recover();
+        Mockito.verifyNoMoreInteractions(dependencia1,dependencia2,dependencia3);
+    }
+
+    @Test
+    public void givenATwoDifferentInt_whenAlgoritmoX_thenAHigherB(){
+        //given
+        Dependencia1 dependencia1 = Mockito.mock(Dependencia1.class);
+        Dependencia2 dependencia2 = Mockito.mock(Dependencia2.class);
+        Dependencia3 dependencia3 = Mockito.mock(Dependencia3.class);
+        AlgoritmoX algoritmoX = new AlgoritmoX(dependencia1, dependencia2, dependencia3);
+        int a = 6;
+        int b = 5;
+        String c = "";
+        //when
+        algoritmoX.algoritmoACubrir(a, b, c);
+        //then
+        Mockito.verify(dependencia3).send(a,b);
+        Mockito.verify(dependencia3).recover();
+        Mockito.verifyNoMoreInteractions(dependencia1,dependencia2,dependencia3);
+    }
+
+    @Test
+    public void givenATwoDifferentInt_whenAlgoritmoX_thenBHigherA(){
+        //given
+        Dependencia1 dependencia1 = Mockito.mock(Dependencia1.class);
+        Dependencia2 dependencia2 = Mockito.mock(Dependencia2.class);
+        Dependencia3 dependencia3 = Mockito.mock(Dependencia3.class);
+        AlgoritmoX algoritmoX = new AlgoritmoX(dependencia1, dependencia2, dependencia3);
+        int a = 5;
+        int b = 6;
+        String c = "";
+        //when
+        algoritmoX.algoritmoACubrir(a, b, c);
+        //then
+        Mockito.verify(dependencia2).print(a,c);
+        Mockito.verify(dependencia3).recover();
+        Mockito.verifyNoMoreInteractions(dependencia1,dependencia2,dependencia3);
+    }
     @Test
     public void validarInterfacesCreadas(){
         assertThat(Dependencia1.class).isInterface();
